@@ -48,6 +48,11 @@ public:
   virtual bool initialize(planning_scene_monitor::PlanningSceneMonitorPtr& psm, const std::string &group_name,
                           const std::string &world_frame, const std::string &tcp_frame);
 
+  virtual bool initialize(planning_scene::PlanningScenePtr& planning_scene, const std::string& robot_description,
+                          const std::string &group_name, const std::string &world_frame, const std::string &tcp_frame,
+                          const std::shared_ptr<tf2_ros::Buffer>& tf_buffer = std::shared_ptr<tf2_ros::Buffer>(),
+                          const std::string& name = "");
+
   virtual bool getIK(const Eigen::Isometry3d &pose, const std::vector<double> &seed_state,
                      std::vector<double> &joint_pose) const;
 

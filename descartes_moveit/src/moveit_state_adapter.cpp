@@ -81,7 +81,6 @@ bool MoveitStateAdapter::initialize(planning_scene_monitor::PlanningSceneMonitor
                                     const std::string &world_frame, const std::string &tcp_frame)
 {
   planning_scene_monitor_ = psm;
-  planning_scene_monitor_->startSceneMonitor();
 
   robot_state_.reset(new moveit::core::RobotState(planning_scene_monitor_->getRobotModel()));
   robot_state_->setToDefaultValues();
@@ -136,6 +135,14 @@ bool MoveitStateAdapter::initialize(planning_scene_monitor::PlanningSceneMonitor
 
   // Start the psm
   return true;
+}
+
+bool MoveitStateAdapter::initialize(planning_scene::PlanningScenePtr& planning_scene, const std::string& robot_description,
+                                    const std::string &group_name, const std::string &world_frame, const std::string &tcp_frame,
+                                    const std::shared_ptr<tf2_ros::Buffer>& tf_buffer, const std::string& name)
+{
+  planning_scene_monitor::PlanningSceneMonitorPtr psm(new planning_scene_monitor::PlanningSceneMonitor(planning_scene, robot_description, tf_buffer, name));
+  return initialize(psm, group_name, world_frame, tcp_frame);
 }
 
 bool MoveitStateAdapter::getIK(const Eigen::Isometry3d& pose, const std::vector<double>& seed_state,
