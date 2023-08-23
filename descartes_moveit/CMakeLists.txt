@@ -36,7 +36,7 @@ catkin_package(
     tf
   DEPENDS
     Boost
-    EIGEN3
+    Eigen3
 )
 
 ###########
